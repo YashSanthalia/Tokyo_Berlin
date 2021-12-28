@@ -1,6 +1,5 @@
 import { FETCH_HOSTEL, FETCH_HOSTELS } from "./_types/hostel_types";
 import api from "../apis/main";
-import { useNavigate } from "react-router-dom";
 
 export const fetchHostels = () => async dispatch => {
     console.log(FETCH_HOSTELS);
@@ -11,9 +10,9 @@ export const fetchHostels = () => async dispatch => {
 
 export const fetchHostel = (formValues) => async dispatch => {
     console.log(FETCH_HOSTEL);
-    const response = await api.get("/hostels", formValues);
-    console.log("yash");
-    const navigate = useNavigate();
-    navigate("/");
-    dispatch({ type : FETCH_HOSTEL, payload : response.data });
-}
+    console.log(formValues);
+    const response = await api.get(`/hostels/${formValues.userName}/${formValues.password}`);
+    console.log(response);
+    dispatch({type : FETCH_HOSTEL, payload : response.data});
+ }
+
