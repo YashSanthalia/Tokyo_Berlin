@@ -1,18 +1,25 @@
-import { FETCH_HOSTEL, FETCH_HOSTELS } from "./_types/hostel_types";
+import _ from "lodash";
+
+import { ADD_HOSTEL, FETCH_HOSTELS } from "./_types/hostel_types";
+import { LOGIN_HOSTEL } from "./_types/login_types";
 import api from "../apis/main";
 
-export const fetchHostels = () => async dispatch => {
-    console.log(FETCH_HOSTELS);
-    const response = await api.get("/hostels");
+export const loginHostel = (formValues) => async dispatch => {
+    const response = await api.get(`/hostels/${formValues.userName}/${formValues.password}`);
+    dispatch({type : LOGIN_HOSTEL, payload : response.data});
+}
 
+export const fetchHostels = () => async dispatch => {
+    const response = await api.get("/hostels");
     dispatch({ type : FETCH_HOSTELS, payload : response.data} );
 }
 
-export const fetchHostel = (formValues) => async dispatch => {
-    console.log(FETCH_HOSTEL);
-    console.log(formValues);
-    const response = await api.get(`/hostels/${formValues.userName}/${formValues.password}`);
-    console.log(response);
-    dispatch({type : FETCH_HOSTEL, payload : response.data});
- }
-
+export const addHostel = (formValues) => async dispatch => {
+    const response = await api.post("/hostels", formValues);
+    if(_.isEmpty(response.data)) {
+         dispatch({ type : "STATUS", payload : { status:"Error", description : "A hostel with same name already exists." } }); 
+         return; 
+    }
+    dispatch({ type : "STATUS", payload : { status:"Success", description : `${response.data.name}` } }); 
+    dispatch({ type : ADD_HOSTEL, payload : response.data });
+}

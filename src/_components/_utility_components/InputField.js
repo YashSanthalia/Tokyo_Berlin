@@ -1,6 +1,7 @@
 import React from "react";
 
 const InputField = (formProps) => {
+  
   const renderError = ({ error, touched }) => {
     if (error && touched) {
       return <div>{error}</div>;

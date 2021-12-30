@@ -1,21 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { reduxForm, Field } from "redux-form";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
+import _ from "lodash";
+import { useNavigate } from "react-router-dom";
 
 import Title from "../_utility_components/Title"
 import InputField from "../_utility_components/InputField";
 import { Button }  from "../_utility_components/Button";
-import { fetchHostel } from "../../_actions/hostel_actions";
-import { fetchStudent } from "../../_actions/student_actions";  
-import { fetchGuard } from "../../_actions/guard_actions";
-import { fetchCanteen } from "../../_actions/canteen_actions";
+import { loginHostel } from "../../_actions/hostel_actions";
+import { loginStudent } from "../../_actions/student_actions";  
+import { loginGuard } from "../../_actions/guard_actions";
+import { loginCanteen } from "../../_actions/canteen_actions";
+import { resetLoginTo } from "../../_actions/utility_actions";
 
 const LoginPage = (props) => {
 
+  const navigate = useNavigate();
   const params = useParams();
-
   const loginAs = params.loginAs;
+
+  useEffect(() => {
+    if(_.isEmpty(props.loginTo)) return;
+    if(props.loginTo === "error"){
+      console.log("Error Detected");
+    }
+    else if(loginAs === "students") console.log("Student Detected");
+    else if(loginAs === "wardens") {
+      if(props.loginTo === "superadmin") navigate("/superadmin");
+      else navigate(`/hostels/${props.loginTo}`);
+    }
+    else if(loginAs === "canteens") console.log("Canteen Detected");
+    else if(loginAs === "guards") console.log("Guard Detected");
+    props.resetLoginTo();
+
+  }, [props.loginTo, loginAs]);
+
+
   let titleText;
 
   if (loginAs == "students") titleText = "Student Login";
@@ -24,10 +45,10 @@ const LoginPage = (props) => {
   else if(loginAs === "guards") titleText = "Guard Login";
 
   const onSubmit = (formValues) => {
-    if(loginAs === "students") props.fetchStudent(formValues);
-    else if(loginAs === "wardens") props.fetchHostel(formValues);
-    else if(loginAs === "guards") props.fetchGuard(formValues);
-    else if(loginAs === "canteens") props.fetchCanteen(formValues);
+    if(loginAs === "students") props.loginStudent(formValues);
+    else if(loginAs === "wardens") props.loginHostel(formValues);
+    else if(loginAs === "guards") props.loginGuard(formValues);
+    else if(loginAs === "canteens") props.loginCanteen(formValues);
   };
 
   
@@ -60,7 +81,11 @@ const formWrapped =  reduxForm({
 })(LoginPage);
 
 const actionCreators = {
-  fetchHostel, fetchCanteen, fetchGuard, fetchStudent
+  loginHostel, loginCanteen, loginGuard, loginStudent, resetLoginTo
 };
 
-export default connect( null, actionCreators )(formWrapped);
+const mapStateToProps = (state) => {
+  return { loginTo : state.loginTo };
+}
+
+export default connect( mapStateToProps, actionCreators )(formWrapped);
