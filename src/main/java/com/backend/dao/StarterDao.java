@@ -33,6 +33,8 @@ public class StarterDao {
 //		jdbcTemplate.execute(que);
 //		que="INSERT INTO `hostels` (`id`, `name`, `capacity`, `status`) VALUES ('1', 'svbh', '800', '2');";
 //		jdbcTemplate.execute(que);
+		que= "CREATE TABLE IF NOT EXISTS 'guards' ('id INT NOT NULL, 'name' VARCHAR(100) NOT NULL, 'email' VARCHAR(100) NULL, 'password' VARCHAR(45) NULL, 'phone_no' VARCHAR(15) NULL, 'hostel_id' INT NULL, PRIMARY KEY ('id'), FOREIGN KEY('hostel_id') REFERENCES 'hostels'('id'));";
+		jdbcTemplate.execute(que);
 	}
 
 }
