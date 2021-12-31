@@ -5,7 +5,7 @@ import api from "../apis/main";
 
 export const loginGuard = (formValues) => async dispatch => {
     console.log(LOGIN_GUARD);
-    const response = await api.get("/guards", formValues);
+    const response = await api.get(`/guards/${formValues.userName}/${formValues.password}`);
 
     dispatch({ type : LOGIN_GUARD, payload : response.data });
 }
