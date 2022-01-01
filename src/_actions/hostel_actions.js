@@ -1,11 +1,18 @@
 import _ from "lodash";
 
-import { ADD_HOSTEL, EDIT_HOSTEL, FETCH_HOSTELS } from "./_types/hostel_types";
+import { ADD_HOSTEL, EDIT_HOSTEL, FETCH_HOSTELS, RESET_HOSTELS } from "./_types/hostel_types";
 import { LOGIN_HOSTEL } from "./_types/login_types";
 import api from "../apis/main";
 
 export const loginHostel = (formValues) => async dispatch => {
     const response = await api.get(`/hostels/${formValues.userName}/${formValues.password}`);
+
+    if(response.data === "error"){
+        dispatch({ type : "STATUS", payload : { status:"Error", description : "Check your credentials" } }); 
+        return; 
+    }
+
+    dispatch({ type : "STATUS", payload : { status:"Success", description : `${response.data}` } }); 
     dispatch({type : LOGIN_HOSTEL, payload : response.data});
 }
 
@@ -34,4 +41,9 @@ export const editHostel = (id, formValues) => async dispatch => {
 
     dispatch({ type : "STATUS", payload : { status:"Success", description : `${response.data.name}` } }); 
     dispatch({ type : EDIT_HOSTEL, payload : response.data });
+}
+
+
+export const resetHostels = () => async dispatch => {
+    dispatch ({ type : RESET_HOSTELS, payload : {} });
 }

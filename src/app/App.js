@@ -26,19 +26,51 @@ import Complaints from "../_components/hostels/Complaints";
 import EditStudent from "../_components/hostels/EditStudent";
 //import { FILE_COMPLAINT } from "../_components/_constants/student_constants";
 
+import SuperAdminPrivateRoute from "./SuperAdminPrivateRoute";
+
 const App = () => {
 
   const superAdminRoutes = () => {
     return (
       <React.Fragment>
-          <Route path = "/superAdmin/addHostel" element = { <AddHostel />} />  
-          <Route path = "/superAdmin/editHostel/:hostelName" element = { <EditHostel />} />  
-          <Route path = "/superAdmin/addWarden" element = { <AddWarden />} />  
-          <Route path = "/superAdmin/editWarden/:wardenId" element = { <EditWarden />} />  
-          <Route path = "/superAdmin/showHostels" element = { <ShowHostels /> } />
-          <Route path = "/superAdmin/showWardens" element = { <ShowWardens /> } />
+          <Route path = "/superAdmin/addHostel" element = { <SuperAdminPrivateRoute> <AddHostel/> </SuperAdminPrivateRoute> } />  
+          <Route path = "/superAdmin/editHostel/:hostelName" element = { <SuperAdminPrivateRoute> <EditHostel/> </SuperAdminPrivateRoute> } />  
+          <Route path = "/superAdmin/addWarden" element = { <SuperAdminPrivateRoute> <AddWarden/> </SuperAdminPrivateRoute>} />  
+          <Route path = "/superAdmin/editWarden/:wardenId" element = { <SuperAdminPrivateRoute> <EditWarden/> </SuperAdminPrivateRoute>} />  
+          <Route path = "/superAdmin/showHostels" element = { <SuperAdminPrivateRoute> <ShowHostels/> </SuperAdminPrivateRoute> } />
+          <Route path = "/superAdmin/showWardens" element = { <SuperAdminPrivateRoute> <ShowWardens/> </SuperAdminPrivateRoute> } />
       </React.Fragment>
     );
+  }
+
+  const hostelRoutes = () => {
+    return (
+      <React.Fragment>
+          <Route path = "/hostels/:hostelName/addStudent" element = { <AddStudent/>} />  
+          <Route path = "/hostels/:hostelName/allStudents" element = { <AllStudents />} />  
+          <Route path = "/hostels/:hostelName/complaints" element = { <Complaints />} />  
+          <Route path = "/hostels/:hostelName/editStudent" element = { <EditStudent />} />  
+      </React.Fragment>
+    )
+  }
+
+  const studentRoutes = () => {
+    return (
+      <React.Fragment>
+          <Route path = "/students/:regNo/editDetails" element = { <EditDetails/>} />
+          <Route path = "/students/:regNo/fileComplaint" element = { <FileComplaint/>} />
+          <Route path = "/students/:regNo/profile" element = { <Profile/>} />
+      </React.Fragment>
+    )
+  }
+
+  const guardRoutes = () => {
+    return (
+      <React.Fragment>
+          <Route path = "/guards/:hostelName/checkInCheckOut" element = { <CheckInCheckOut /> } />
+          <Route path = "/guards/:hostelName/studentOutisde" element = { <StudentOutside/>} />
+      </React.Fragment>
+    )
   }
 
   return (
@@ -50,20 +82,14 @@ const App = () => {
           {superAdminRoutes()}
         </Route>
         <Route path = "/hostels/:hostelName" element = { <HostelPage /> } >
-          <Route path = "/hostels/:hostelName/addStudent" element = { <AddStudent/>} />  
-          <Route path = "/hostels/:hostelName/allStudents" element = { <AllStudents />} />  
-          <Route path = "/hostels/:hostelName/complaints" element = { <Complaints />} />  
-          <Route path = "/hostels/:hostelName/editStudent" element = { <EditStudent />} />  
+          {hostelRoutes()}
         </Route>
         <Route path = "/students/:regNo" element = { <StudentPage />} >
-          <Route path = "/students/:regNo/editDetails" element = { <EditDetails/>} />
-          <Route path = "/students/:regNo/fileComplaint" element = { <FileComplaint/>} />
-          <Route path = "/students/:regNo/profile" element = { <Profile/>} />
+          {studentRoutes()}
         </Route>
         <Route path = "/canteens/:canteenName" element = { <CanteenPage /> } />
         <Route path = "/guards/:hostelName" element = { <GuardPage /> } >
-          <Route path = "/guards/:hostelName/checkInCheckOut" element = { <CheckInCheckOut /> } />
-          <Route path = "/guards/:hostelName/studentOutisde" element = { <StudentOutside/>} />
+          {guardRoutes()}
         </Route>
         <Route path = "*" element = { <ErrorPage /> } />
       </Routes>

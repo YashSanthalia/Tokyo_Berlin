@@ -10,7 +10,7 @@ import wardenReducer from "./wardenReducer";
 
 export default combineReducers({
     form : reducer,
-    loginTo : loginReducer,
+    login : loginReducer,
     student : studentReducer,
     hostel : hostelReducer,
     guard : guardReducer,

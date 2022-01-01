@@ -12,7 +12,8 @@ import { loginHostel } from "../../_actions/hostel_actions";
 import { loginStudent } from "../../_actions/student_actions";  
 import { loginGuard } from "../../_actions/guard_actions";
 import { loginCanteen } from "../../_actions/canteen_actions";
-import { resetLoginTo } from "../../_actions/utility_actions";
+import { resetLogin } from "../../_actions/utility_actions";
+import ErrorModal from "../_utility_components/ErrorModal";
 
 const LoginPage = (props) => {
 
@@ -21,23 +22,19 @@ const LoginPage = (props) => {
   const loginAs = params.loginAs;
 
   useEffect(() => {
-    if(_.isEmpty(props.loginTo)) return;
-    if(props.loginTo === "error"){
-      console.log("Error Detected");
-    }
+    if(_.isEmpty(props.login)) return;
     else if(loginAs === "students") {
       console.log("Student Detected");
-      navigate(`/students/${props.loginTo}`);
+      navigate(`/students/${props.login.to}`);
     }
     else if(loginAs === "wardens") {
-      if(props.loginTo === "superadmin") navigate("/superadmin");
-      else navigate(`/hostels/${props.loginTo}`);
+      if(props.login.to === "superadmin") navigate("/superadmin");
+      else navigate(`/hostels/${props.login.to}`);
     }
     else if(loginAs === "canteens") console.log("Canteen Detected");
     else if(loginAs === "guards") console.log("Guard Detected");
-    props.resetLoginTo();
-
-  }, [props.loginTo, loginAs]);
+    
+  }, [props.login, loginAs]);
 
 
   let titleText;
@@ -59,12 +56,11 @@ const LoginPage = (props) => {
     <div>
       <Title text={titleText} />
       <form onSubmit={props.handleSubmit(onSubmit)} >
-
         <Field name="userName" component={InputField} label="Username" />
         <Field name="password" component={InputField} label="Password" />
-        <Button text="Submit" />
-      
+        <Button text="Submit" />      
       </form>
+      {props.status.status === "Error" ? <ErrorModal /> : null }
     </div>
   );
 
@@ -84,11 +80,11 @@ const formWrapped =  reduxForm({
 })(LoginPage);
 
 const actionCreators = {
-  loginHostel, loginCanteen, loginGuard, loginStudent, resetLoginTo
+  loginHostel, loginCanteen, loginGuard, loginStudent, resetLogin
 };
 
 const mapStateToProps = (state) => {
-  return { loginTo : state.loginTo };
+  return { login : state.login, status : state.status };
 }
 
 export default connect( mapStateToProps, actionCreators )(formWrapped);

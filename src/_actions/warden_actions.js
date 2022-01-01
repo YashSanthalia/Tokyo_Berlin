@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { ADD_WARDEN, FETCH_WARDENS, UPDATE_WARDEN } from "./_types/warden_types";
+import { ADD_WARDEN, FETCH_WARDENS, RESET_WARDENS, UPDATE_WARDEN } from "./_types/warden_types";
 import api from "../apis/main";
 
 export const addWarden = (formValues) => async dispatch => {
@@ -30,4 +30,8 @@ export const editWarden = (id, formValues) => async dispatch => {
     dispatch({ type : "STATUS", payload : { status:"Success", description : `${response.data.email}` } });
     
     dispatch({ type : UPDATE_WARDEN, payload : response.data});
+}
+
+export const resetWardens = () => async dispatch => {
+    dispatch({ type : RESET_WARDENS, payload : {} });
 }

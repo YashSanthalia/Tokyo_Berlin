@@ -1,15 +1,18 @@
 import React, { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { connect } from "react-redux";
-//import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Button } from "../_utility_components/Button";
 import {ADD_STUDENT,EDIT_STUDENT,ALL_STUDENTS,COMPLAINTS} from "../_constants/hostel_constants";
 
-const hostelPage = (props) => {
+const HostelPage = (props) => {
     
+    const params = useParams();
+    const hostelName = params.hostelName;
+
     return (
         <div>
-            <h1>Hostel Name</h1>
+            <h1>{`Hostel ${hostelName}`}</h1>
             <Link to = "/hostels/:hostelName/addStudent">
                 <Button text = {ADD_STUDENT} />
             </Link>
@@ -27,4 +30,4 @@ const hostelPage = (props) => {
     );
 }
 
-export default connect(null, {} )(hostelPage);
+export default connect(null, {} )(HostelPage);

@@ -2,4 +2,4 @@ export const LOGIN_HOSTEL = "LOGIN_HOSTEL";
 export const LOGIN_GUARD = "LOGIN_GUARD";
 export const LOGIN_STUDENT = "LOGIN_STUDENT";
 export const LOGIN_CANTEEN = "LOGIN_CANTEEN";
-export const RESET_LOGIN_TO = "RESET_LOGIN_TO";
+export const RESET_LOGIN = "RESET_LOGIN";

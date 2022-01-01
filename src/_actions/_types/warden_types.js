@@ -3,3 +3,4 @@ export const DELETE_WARDEN = "DELETE_WARDEN";
 export const ADD_WARDEN = "ADD_WARDEN";
 export const UPDATE_WARDEN = "UPDATE_WARDEN";
 export const FETCH_WARDENS = "FETCH_WARDENS";
+export const RESET_WARDENS = "RESET_WARDENS";

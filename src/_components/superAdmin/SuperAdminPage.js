@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { fetchHostels } from "../../_actions/hostel_actions";
-import { fetchWardens } from "../../_actions/warden_actions";
+import { fetchHostels, resetHostels } from "../../_actions/hostel_actions";
+import { fetchWardens, resetWardens } from "../../_actions/warden_actions";
+import { resetLogin } from "../../_actions/utility_actions";
 import { Button } from "../_utility_components/Button";
 import { ADD_HOSTEL, ADD_WARDEN, SHOW_HOSTELS, SHOW_WARDENS } from "../_constants/super_admin_constants";
 
@@ -13,6 +14,12 @@ const SuperAdminPage = (props) => {
         props.fetchHostels();
         props.fetchWardens();
     }, []);
+
+    const reset = () => {
+        props.resetLogin();
+        props.resetHostels();
+        props.resetWardens();
+    }
 
     return (
         <div>
@@ -29,9 +36,15 @@ const SuperAdminPage = (props) => {
             <Link to = "/superadmin/showWardens">
                 <Button text = {SHOW_WARDENS} />
             </Link>
+            <Link to = "/">
+                <Button onClick = { reset } text = "LOG OUT" />
+            </Link>
             <Outlet />
         </div>
     );
 }
 
-export default connect(null, { fetchHostels, fetchWardens } )(SuperAdminPage);
+const actionCreators = {
+    fetchHostels, fetchWardens, resetHostels, resetWardens, resetLogin
+}
+export default connect(null, actionCreators )(SuperAdminPage);

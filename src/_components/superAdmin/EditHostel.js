@@ -4,11 +4,11 @@ import _ from "lodash";
 
 import { editHostel } from "../../_actions/hostel_actions";
 import HostelForm from "./HostelForm";
+import ErrorModal from "../_utility_components/ErrorModal";
 
 const EditHostel = (props) => {
 
     useEffect(() => {
-        if(props.status.status === "Error") console.log(props.status);
         if(props.status.status === "Success") console.log(`Lets go to ${props.status.description}`);
     }, [props.status]);
 
@@ -20,6 +20,7 @@ const EditHostel = (props) => {
         <div>
             <h1>EDIT HOSTEL</h1>
             <HostelForm initialValues={props.hostel} onSubmit={onSubmit} />
+            { props.status.status === "Error" ? <ErrorModal /> : null }
         </div>
     );
 
