@@ -25,7 +25,10 @@ const LoginPage = (props) => {
     if(props.loginTo === "error"){
       console.log("Error Detected");
     }
-    else if(loginAs === "students") console.log("Student Detected");
+    else if(loginAs === "students") {
+      console.log("Student Detected");
+      navigate(`/students/${props.loginTo}`);
+    }
     else if(loginAs === "wardens") {
       if(props.loginTo === "superadmin") navigate("/superadmin");
       else navigate(`/hostels/${props.loginTo}`);
