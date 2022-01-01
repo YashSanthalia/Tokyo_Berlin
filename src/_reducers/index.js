@@ -6,6 +6,7 @@ import hostelReducer from "./hostelReducer";
 import studentReducer from "./studentReducer";
 import loginReducer from "./loginReducer";
 import statusReducer from "./statusReducer";
+import wardenReducer from "./wardenReducer";
 
 export default combineReducers({
     form : reducer,
@@ -14,5 +15,6 @@ export default combineReducers({
     hostel : hostelReducer,
     guard : guardReducer,
     canteen : canteenReducer,
-    status : statusReducer
+    status : statusReducer,
+    wardens : wardenReducer
 });

@@ -1,7 +1,36 @@
-import React from "react";
+import { React, useEffect } from "react";
+import { connect } from "react-redux";
+import _ from "lodash";
 
-const EditHostel = () => {
-    return <h1>EDIT HOSTEL</h1>
+import { editHostel } from "../../_actions/hostel_actions";
+import HostelForm from "./HostelForm";
+
+const EditHostel = (props) => {
+
+    useEffect(() => {
+        if(props.status.status === "Error") console.log(props.status);
+        if(props.status.status === "Success") console.log(`Lets go to ${props.status.description}`);
+    }, [props.status]);
+
+    const onSubmit = (formValues) => {
+        props.editHostel(props.hostel.id, formValues);
+    }
+
+    return (
+        <div>
+            <h1>EDIT HOSTEL</h1>
+            <HostelForm initialValues={props.hostel} onSubmit={onSubmit} />
+        </div>
+    );
+
 };
 
-export default EditHostel;
+const mapStateToProps = (state) => {
+    const id = window.location.pathname.split("/")[3];
+    const hostel = Object.values(state.hostel).filter((hostel) => {
+        return hostel.id == id
+    })
+    return { hostel : hostel[0], status : state.status };
+}
+
+export default connect(mapStateToProps, { editHostel })(EditHostel);
