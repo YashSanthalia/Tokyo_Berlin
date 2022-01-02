@@ -68,7 +68,7 @@ const App = () => {
     return (
       <React.Fragment>
           <Route path = "/guards/:hostelName/checkInCheckOut" element = { <CheckInCheckOut /> } />
-          <Route path = "/guards/:hostelName/studentOutisde" element = { <StudentOutside/>} />
+          <Route path = "/guards/:hostelName/studentOutside" element = { <StudentOutside/>} />
       </React.Fragment>
     )
   }

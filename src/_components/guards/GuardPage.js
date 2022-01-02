@@ -1,19 +1,20 @@
 import React, { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { connect } from "react-redux";
-//import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Button } from "../_utility_components/Button";
 import {CHECK_IN_CHECK_OUT,STUDENT_OUTSIDE} from "../_constants/guard_constants";
 
-const guardPage = (props) => {
-    
+const GuardPage = (props) => {
+    const params = useParams();
+    const hostelName = params.hostelName;
     return (
         <div>
-            <h1>Hostel Name</h1>
+            <h1>{`Hostel ${hostelName}`}</h1>
             <Link to = "/guards/:hostelName/Check_In_Check_Out">
                 <Button text = {CHECK_IN_CHECK_OUT} />
             </Link>
-            <Link to = "/guards/:hostelName/studentOutisde">
+            <Link to = "/guards/:hostelName/studentOutside">
                 <Button text = {STUDENT_OUTSIDE} />
             </Link>
             <Outlet />
@@ -21,4 +22,4 @@ const guardPage = (props) => {
     );
 }
 
-export default connect(null, {} )(guardPage);
+export default connect(null, {} )(GuardPage);
