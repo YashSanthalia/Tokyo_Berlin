@@ -32,11 +32,10 @@ const LoginPage = (props) => {
       else navigate(`/hostels/${props.login.to}`);
     }
     else if(loginAs === "canteens") console.log("Canteen Detected");
-    else if(loginAs === "guards"){
+    else if(loginAs === "guards") {
       console.log("Guard Detected");
-      navigate(`/guards/${props.login.to}`);
+    navigate(`/guards/${props.login.to}`);
     }
-    
   }, [props.login, loginAs]);
 
 
