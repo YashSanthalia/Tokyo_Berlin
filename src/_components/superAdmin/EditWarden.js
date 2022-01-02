@@ -5,12 +5,9 @@ import _ from "lodash";
 import { editWarden } from "../../_actions/warden_actions";
 import WardenForm from "./WardenForm";
 import ErrorModal from "../_utility_components/ErrorModal";
+import ShowWarden from "./ShowWarden";
 
 const EditWarden = (props) => {
-
-    useEffect(() => {
-        if(props.status.status === "Success") console.log(`Lets go to ${props.status.description}`);
-    }, [props.status]);
 
     const onSubmit = (formValues) => {
         props.editWarden(props.warden.id, formValues);
@@ -18,9 +15,15 @@ const EditWarden = (props) => {
 
     return (
         <div>
-            <h1>EDIT WARDEN</h1>
-            <WardenForm initialValues={props.warden} onSubmit={onSubmit} />
-            {props.status.status === "Error" ? <ErrorModal /> : null }
+            {
+            props.status.status === "Success" ? 
+                <ShowWarden title = "Warden Edited Successfully" warden = {props.warden} /> :
+                <div>
+                    <h1>EDIT WARDEN</h1>
+                    <WardenForm initialValues={props.warden} onSubmit={onSubmit} />
+                    {props.status.status === "Error" ? <ErrorModal /> : null }
+                </div>
+            }
         </div>
     );
 

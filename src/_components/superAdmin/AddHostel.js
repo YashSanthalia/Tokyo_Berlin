@@ -1,27 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import HostelForm from "./HostelForm";
 import { addHostel } from "../../_actions/hostel_actions";
 import ErrorModal from "../_utility_components/ErrorModal";
 import { resetStatus } from "../../_actions/utility_actions";
+import ShowHostel from "./ShowHostel";
 
 
 const AddHostel = (props) => {
 
-    useEffect(() => {
-        if(props.status.status === "Success") console.log(`Lets go to ${props.status.description}`);
-    }, [props.status]);
+    const [ hostel, setHostel ] = useState({});
 
     const onSubmit = (formValues) => {
         props.addHostel(formValues);
+        setHostel(formValues);
     }
 
     return (
         <div>
-            <h1>ADD HOSTEL</h1>
-            <HostelForm onSubmit={onSubmit} initialValues={ {status : "1"} }/>
-            { props.status.status === "Error" ? <ErrorModal /> : null }
+            { 
+            props.status.status === "Success" ? 
+                <ShowHostel title = "ADDED SUCCESSFULLY" hostel = {hostel} /> :
+                <div>
+                    <h1>ADD HOSTEL</h1>
+                    <HostelForm onSubmit={onSubmit} initialValues={ {status : "1"} }/>
+                    { props.status.status === "Error" ? <ErrorModal /> : null }
+                </div>
+            }
         </div>
     );
     

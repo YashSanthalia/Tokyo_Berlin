@@ -4,13 +4,14 @@ import { connect } from "react-redux";
 
 import { fetchHostels, resetHostels } from "../../_actions/hostel_actions";
 import { fetchWardens, resetWardens } from "../../_actions/warden_actions";
-import { resetLogin } from "../../_actions/utility_actions";
+import { resetLogin, resetStatus } from "../../_actions/utility_actions";
 import { Button } from "../_utility_components/Button";
 import { ADD_HOSTEL, ADD_WARDEN, SHOW_HOSTELS, SHOW_WARDENS } from "../_constants/super_admin_constants";
 
 const SuperAdminPage = (props) => {
 
     useEffect(() => {
+        props.resetStatus();
         props.fetchHostels();
         props.fetchWardens();
     }, []);
@@ -45,6 +46,6 @@ const SuperAdminPage = (props) => {
 }
 
 const actionCreators = {
-    fetchHostels, fetchWardens, resetHostels, resetWardens, resetLogin
+    fetchHostels, fetchWardens, resetHostels, resetWardens, resetLogin, resetStatus
 }
 export default connect(null, actionCreators )(SuperAdminPage);
