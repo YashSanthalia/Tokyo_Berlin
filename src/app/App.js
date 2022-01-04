@@ -49,7 +49,7 @@ const App = () => {
           <Route path = "/hostels/:hostelName/addStudent" element = { <AddStudent/>} />  
           <Route path = "/hostels/:hostelName/allStudents" element = { <AllStudents />} />  
           <Route path = "/hostels/:hostelName/complaints" element = { <Complaints />} />  
-          <Route path = "/hostels/:hostelName/editStudent" element = { <EditStudent />} />  
+          <Route path = "/hostels/:hostelName/editStudent/:regNo" element = { <EditStudent />} />  
       </React.Fragment>
     )
   }
