@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { ADD_STUDENT, EDIT_STUDENT, FETCH_STUDENTS } from "./_types/student_types";
+import { ADD_STUDENT, EDIT_STUDENT, FETCH_STUDENTS,RESET_STUDENTS } from "./_types/student_types";
 import { LOGIN_STUDENT } from "./_types/login_types";
 
 import api from "../apis/main";
@@ -42,4 +42,8 @@ export const fetchStudentByRegistrationNumber = (registrationNumber) => async di
     const response = await api.get(`/students/${registrationNumber}`);
     
     dispatch({ type : LOGIN_STUDENT, payload : response.data });
-} 
+}
+
+export const resetStudents = () => async dispatch => {
+    dispatch ({ type : RESET_STUDENTS, payload : {} });
+}

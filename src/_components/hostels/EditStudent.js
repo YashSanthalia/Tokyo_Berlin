@@ -1,4 +1,4 @@
-/*import { React, useEffect } from "react";
+import { React, useEffect } from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
 
@@ -17,8 +17,8 @@ const EditStudent = (props) => {
         <div>
             { 
             props.status.status === "Success" ? 
-                //<ShowStudent title = "EDITED SUCCESSFULLY" student = {props.student } /> : 
-                console.log("edited successfully"):
+                <ShowStudent title = "EDITED SUCCESSFULLY" student = {props.student } /> : 
+                //console.log("edited successfully"):
                 <div>
                     <h1>EDIT STUDENT</h1>
                     <StudentForm initialValues={props.student} onSubmit={onSubmit} />
@@ -30,12 +30,12 @@ const EditStudent = (props) => {
 
 };
 
-/*const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     const id = window.location.pathname.split("/")[3];
-    const Student = Object.values(state.student).filter((student) => {
+    const student = Object.values(state.student).filter((student) => {
         return student.regNo == id
     })
     return { student : student[0], status : state.status };
 }
 
-export default connect(null, { editStudent })(EditStudent);*/
+export default connect(mapStateToProps, { editStudent })(EditStudent);

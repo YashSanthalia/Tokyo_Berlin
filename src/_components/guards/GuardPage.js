@@ -11,7 +11,7 @@ const GuardPage = (props) => {
     return (
         <div>
             <h1>{`Hostel ${hostelName}`}</h1>
-            <Link to = "/guards/:hostelName/Check_In_Check_Out">
+            <Link to = "/guards/:hostelName/CheckInCheckOut">
                 <Button text = {CHECK_IN_CHECK_OUT} />
             </Link>
             <Link to = "/guards/:hostelName/studentOutside">
