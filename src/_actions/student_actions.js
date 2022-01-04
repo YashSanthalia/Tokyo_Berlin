@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { ADD_STUDENT, EDIT_STUDENT, FETCH_STUDENTS,RESET_STUDENTS } from "./_types/student_types";
+import { ADD_STUDENT, EDIT_STUDENT, FETCH_STUDENTS,FETCH_STUDENTS_OF_HOSTEL, RESET_STUDENTS } from "./_types/student_types";
 import { LOGIN_STUDENT } from "./_types/login_types";
 
 import api from "../apis/main";
@@ -16,6 +16,13 @@ export const fetchStudents = () => async dispatch => {
     const response = await api.get("/students");
     
     dispatch({ type : FETCH_STUDENTS, payload : response.data });
+}
+
+export const fetchStudentsOfHostel = (hostelName) => async dispatch => {
+    console.log(FETCH_STUDENTS_OF_HOSTEL);
+    const response = await api.get(`/students/${hostelName}`);
+    
+    dispatch({ type : FETCH_STUDENTS_OF_HOSTEL, payload : response.data });
 }
 
 export const addStudent = (formValues) => async dispatch => {

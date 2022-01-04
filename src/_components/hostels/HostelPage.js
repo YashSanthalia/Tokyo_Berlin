@@ -3,7 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Button } from "../_utility_components/Button";
-import { fetchStudents, resetStudents } from "../../_actions/student_actions";
+import { fetchStudentsOfHostel, resetStudents } from "../../_actions/student_actions";
 import {resetStatus } from "../../_actions/utility_actions";
 import {ADD_STUDENT,EDIT_STUDENT,ALL_STUDENTS,COMPLAINTS} from "../_constants/hostel_constants";
 
@@ -14,7 +14,7 @@ const HostelPage = (props) => {
 
     useEffect(() => {
         props.resetStatus();
-        props.fetchStudents();
+        props.fetchStudentsOfHostel(hostelName);
     }, []);
     const reset = () => {
         props.resetStudents();
@@ -43,7 +43,7 @@ const HostelPage = (props) => {
     );
 }
 const actionCreators = {
-    fetchStudents, resetStudents, resetStatus
+    fetchStudentsOfHostel, resetStudents, resetStatus
 }
 
 export default connect(null, actionCreators )(HostelPage);

@@ -5,7 +5,7 @@ import styles from "../_utility_components/Table.module.css";
 import TableFooter from "../_utility_components/TableFooter";
 import { Button } from "../_utility_components/Button";
 
-const Student7Table = ({ data, rowsPerPage }) => {
+const StudentTable = ({ data, rowsPerPage }) => {
   const [page, setPage] = useState(1);
   const { slice, range } = useTable(data, page, rowsPerPage);
 
